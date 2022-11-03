@@ -8,6 +8,7 @@ packages = [{include = "carrot_market_backend"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+django = "^4.1.3"
 
 
 [build-system]
