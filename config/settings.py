@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
-CUSTOM_APPS = ["users.apps.UsersConfig", "products.apps.ProductsConfig"]
+CUSTOM_APPS = [
+    "common.apps.CommonConfig",
+    "users.apps.UsersConfig",
+    "products.apps.ProductsConfig",
+]
 
 INSTALLED_APPS += CUSTOM_APPS
 

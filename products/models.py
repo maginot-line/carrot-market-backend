@@ -1,7 +1,8 @@
 from django.db import models
+from common.models import CommonModel
 
 # Create your models here.
-class Product(models.Model):
+class Product(CommonModel):
     # image
     title = models.CharField(max_length=100)
     # category
