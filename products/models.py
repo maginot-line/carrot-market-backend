@@ -12,3 +12,6 @@ class Product(CommonModel):
     description = models.TextField()
     latitude_to_trade = models.CharField(max_length=100)
     longitude_to_trade = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.title
