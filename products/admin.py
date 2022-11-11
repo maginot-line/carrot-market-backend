@@ -5,12 +5,12 @@ from .models import Product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        "title",
+        "name",
         "price",
         "give_away",
         "get_price_offer",
-        "latitude_to_trade",
-        "longitude_to_trade",
+        "latitude",
+        "longitude",
         "created_at",
         "updated_at",
     )
