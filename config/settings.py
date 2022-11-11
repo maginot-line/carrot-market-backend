@@ -44,6 +44,7 @@ CUSTOM_APPS = [
     "users.apps.UsersConfig",
     "products.apps.ProductsConfig",
     "communities.apps.CommunitiesConfig",
+    "categories.apps.CategoriesConfig",
 ]
 
 INSTALLED_APPS += CUSTOM_APPS

@@ -6,6 +6,7 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "name",
+        "category",
         "price",
         "give_away",
         "get_price_offer",
@@ -14,4 +15,4 @@ class ProductAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
-    list_filter = ("created_at", "updated_at")
+    list_filter = ("category", "created_at", "updated_at")

@@ -5,7 +5,9 @@ from common.models import CommonModel
 class Product(CommonModel):
     # image
     name = models.CharField(max_length=100)
-    # category
+    category = models.ForeignKey(
+        "categories.Category", null=True, blank=True, on_delete=models.SET_NULL
+    )
     price = models.PositiveIntegerField()
     give_away = models.BooleanField(default=False)
     get_price_offer = models.BooleanField(default=False)
