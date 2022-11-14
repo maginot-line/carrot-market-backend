@@ -14,3 +14,6 @@ class Product(CommonModel):
     description = models.TextField()
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
