@@ -3,7 +3,9 @@ from common.models import CommonModel
 
 # Create your models here.
 class Stream(CommonModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="streams"
+    )
     name = models.CharField(max_length=100)
     price = models.PositiveIntegerField()
     description = models.TextField()
@@ -13,6 +15,10 @@ class Stream(CommonModel):
 
 
 class Message(CommonModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    stream = models.ForeignKey("streams.Stream", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="messages"
+    )
+    stream = models.ForeignKey(
+        "streams.Stream", on_delete=models.CASCADE, related_name="messages"
+    )
     message = models.TextField()

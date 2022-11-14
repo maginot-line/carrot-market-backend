@@ -4,10 +4,10 @@ from common.models import CommonModel
 # Create your models here.
 class Review(CommonModel):
     created_by_user = models.ForeignKey(
-        "users.User", related_name="created_by_user", on_delete=models.CASCADE
+        "users.User", related_name="reviews_created_by_user", on_delete=models.CASCADE
     )
     created_for_user = models.ForeignKey(
-        "users.User", related_name="created_for_user", on_delete=models.CASCADE
+        "users.User", related_name="reviews_created_for_user", on_delete=models.CASCADE
     )
     review = models.TextField()
     rating = models.PositiveIntegerField()

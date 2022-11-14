@@ -3,7 +3,9 @@ from common.models import CommonModel
 
 # Create your models here.
 class Community(CommonModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="communities"
+    )
     question = models.TextField(max_length=240)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -16,12 +18,20 @@ class Community(CommonModel):
 
 
 class Answer(CommonModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    community = models.ForeignKey("Community", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="answers"
+    )
+    community = models.ForeignKey(
+        "Community", on_delete=models.CASCADE, related_name="answers"
+    )
     answer = models.TextField(max_length=240)
 
 
 class Wonder(CommonModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    community = models.ForeignKey("Community", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="wonders"
+    )
+    community = models.ForeignKey(
+        "Community", on_delete=models.CASCADE, related_name="wonders"
+    )
     wonder = models.BooleanField(default=False)
