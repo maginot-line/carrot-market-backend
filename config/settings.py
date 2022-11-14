@@ -47,6 +47,7 @@ CUSTOM_APPS = [
     "categories.apps.CategoriesConfig",
     "reviews.apps.ReviewsConfig",
     "records.apps.RecordsConfig",
+    "streams.apps.StreamsConfig",
 ]
 
 INSTALLED_APPS += CUSTOM_APPS
