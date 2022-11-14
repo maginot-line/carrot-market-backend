@@ -12,3 +12,13 @@ class User(AbstractUser):
     name = models.CharField(max_length=20, blank=True)
     avatar = models.FileField(blank=True)
     gender = models.CharField(max_length=10, choices=GenderChoices.choices, default="")
+
+    def rating(self):
+        count = self.reviews_created_for_user.count()  # type: ignore
+        if count == 0:
+            return "No Reviews"
+        else:
+            total_rating = 0
+            for review in self.reviews_created_for_user.all().values("rating"):  # type: ignore
+                total_rating += review["rating"]
+            return round(total_rating / count, 2)
