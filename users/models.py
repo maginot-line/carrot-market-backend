@@ -10,6 +10,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(blank=True)
     name = models.CharField(max_length=20, blank=True)
+    nickname = models.CharField(max_length=20, blank=True)
     avatar = models.FileField(blank=True)
     gender = models.CharField(max_length=10, choices=GenderChoices.choices, default="")
 

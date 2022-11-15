@@ -15,6 +15,7 @@ class CustomUserAdmin(UserAdmin):
                     "phone",
                     "email",
                     "name",
+                    "nickname",
                     "avatar",
                     "gender",
                 ),
@@ -40,4 +41,4 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-    list_display = ("username", "phone", "email", "name", "rating")
+    list_display = ("username", "phone", "email", "name", "nickname", "rating")
