@@ -1,6 +1,7 @@
 from rest_framework import exceptions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from categories.models import Category
 from . import models, serializers
 
 # Create your views here.
@@ -14,7 +15,16 @@ class Products(APIView):
         if request.user.is_authenticated:
             serializer = serializers.ProductDetailSerializer(data=request.data)
             if serializer.is_valid():
-                product = serializer.save(user=request.user)
+                category_pk = request.data.get("category")
+                if not category_pk:
+                    raise exceptions.ParseError("Category is required")
+                try:
+                    category = Category.objects.get(pk=category_pk)
+                    if category.kind == Category.CategoryKind.COMMUNITY:
+                        raise exceptions.ParseError("Community category is not allowed")
+                except Category.DoesNotExist:
+                    raise exceptions.NotFound("Category not found")
+                product = serializer.save(user=request.user, category=category)
                 serializer = serializers.ProductDetailSerializer(product)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
