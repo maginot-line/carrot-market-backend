@@ -5,8 +5,23 @@ from .models import Product
 
 
 class ProductListSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+    class Meta:
+        model = Product
+        fields = (
+            "name",
+            "category",
+            "price",
+            "description",
+            "latitude",
+            "longitude",
+            "created_at",
+            "updated_at",
+        )
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
     user = TinyUserSerializer()
+    category = CategorySerializer()
 
     class Meta:
         model = Product
