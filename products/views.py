@@ -11,13 +11,19 @@ class Products(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = serializers.ProductDetailSerializer(data=request.data)
-        if serializer.is_valid():
-            product = serializer.save(user=request.user)
-            serializer = serializers.ProductDetailSerializer(product)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_authenticated:
+            serializer = serializers.ProductDetailSerializer(data=request.data)
+            if serializer.is_valid():
+                product = serializer.save(user=request.user)
+                serializer = serializers.ProductDetailSerializer(product)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "You must be logged in to create a product."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
 
 class ProductDetail(APIView):

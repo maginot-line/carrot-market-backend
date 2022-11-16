@@ -20,7 +20,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
-    user = TinyUserSerializer()
+    user = TinyUserSerializer(read_only=True)
     category = CategorySerializer()
 
     class Meta:
