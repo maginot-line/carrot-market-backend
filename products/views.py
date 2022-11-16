@@ -49,7 +49,37 @@ class ProductDetail(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-        pass
+        product = self.get_object(pk)
+        if not request.user.is_authenticated:
+            return Response(
+                {"error": "You must be logged in to update a product."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        if product.user != request.user:
+            return Response(
+                {"error": "You can only update your own products."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        serializer = serializers.ProductDetailSerializer(
+            product, data=request.data, partial=True
+        )
+        if serializer.is_valid():
+            if request.data.get("category"):
+                category_pk = request.data.get("category")
+                try:
+                    category = Category.objects.get(pk=category_pk)
+                    if category.kind == Category.CategoryKind.COMMUNITY:
+                        raise exceptions.ParseError("Community category is not allowed")
+                except Category.DoesNotExist:
+                    raise exceptions.NotFound("Category not found")
+                updated_product = serializer.save(category=category)
+            updated_product = serializer.save()
+            return Response(
+                serializers.ProductDetailSerializer(updated_product).data,
+                status=status.HTTP_200_OK,
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         pass
