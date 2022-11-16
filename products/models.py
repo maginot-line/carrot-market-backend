@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from common.models import CommonModel
 
 # Create your models here.
@@ -15,7 +16,7 @@ class Product(CommonModel):
         on_delete=models.SET_NULL,
         related_name="products",
     )
-    price = models.PositiveIntegerField()
+    price = models.PositiveIntegerField(MinValueValidator(0))
     give_away = models.BooleanField(default=False)
     get_price_offer = models.BooleanField(default=False)
     description = models.TextField()

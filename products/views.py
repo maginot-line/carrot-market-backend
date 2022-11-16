@@ -82,4 +82,16 @@ class ProductDetail(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        pass
+        product = self.get_object(pk)
+        if not request.user.is_authenticated:
+            return Response(
+                {"error": "You must be logged in to delete a product."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        if product.user != request.user:
+            return Response(
+                {"error": "You can only delete your own products."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
