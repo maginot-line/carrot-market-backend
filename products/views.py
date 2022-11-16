@@ -11,7 +11,13 @@ class Products(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        pass
+        serializer = serializers.ProductDetailSerializer(data=request.data)
+        if serializer.is_valid():
+            product = serializer.save(user=request.user)
+            serializer = serializers.ProductDetailSerializer(product)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductDetail(APIView):
