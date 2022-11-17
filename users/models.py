@@ -17,7 +17,7 @@ class User(AbstractUser):
     def rating(self):
         count = self.reviews_created_for_user.count()  # type: ignore
         if count == 0:
-            return "No Reviews"
+            return 0
         else:
             total_rating = 0
             for review in self.reviews_created_for_user.all().values("rating"):  # type: ignore

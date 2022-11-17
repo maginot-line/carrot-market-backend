@@ -8,7 +8,9 @@ from . import models, serializers
 class Products(APIView):
     def get(self, request):
         all_products = models.Product.objects.all()
-        serializer = serializers.ProductListSerializer(all_products, many=True)
+        serializer = serializers.ProductListSerializer(
+            all_products, context={"request": request}, many=True
+        )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -45,7 +47,9 @@ class ProductDetail(APIView):
 
     def get(self, request, pk):
         product = self.get_object(pk)
-        serializer = serializers.ProductDetailSerializer(product)
+        serializer = serializers.ProductDetailSerializer(
+            product, context={"request": request}
+        )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):

@@ -16,7 +16,7 @@ class Product(CommonModel):
         on_delete=models.SET_NULL,
         related_name="products",
     )
-    price = models.PositiveIntegerField(MinValueValidator(0))
+    price = models.PositiveIntegerField()
     give_away = models.BooleanField(default=False)
     get_price_offer = models.BooleanField(default=False)
     description = models.TextField()
