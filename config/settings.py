@@ -50,6 +50,7 @@ CUSTOM_APPS = [
     "reviews.apps.ReviewsConfig",
     "records.apps.RecordsConfig",
     "streams.apps.StreamsConfig",
+    "wishlists.apps.WishlistsConfig",
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + THIRD_PARTY_APPS + CUSTOM_APPS

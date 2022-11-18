@@ -1,11 +1,14 @@
 from rest_framework import exceptions, status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from categories.models import Category
 from . import models, serializers
 
 # Create your views here.
 class Products(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request):
         all_products = models.Product.objects.all()
         serializer = serializers.ProductListSerializer(
@@ -39,6 +42,8 @@ class Products(APIView):
 
 
 class ProductDetail(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return models.Product.objects.get(pk=pk)

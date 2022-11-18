@@ -41,4 +41,12 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-    list_display = ("username", "phone", "email", "name", "nickname", "rating")
+    list_display = (
+        "username",
+        "phone",
+        "email",
+        "name",
+        "nickname",
+        "rating",
+        "wishlists_count",
+    )

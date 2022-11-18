@@ -15,11 +15,18 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10, choices=GenderChoices.choices, default="")
 
     def rating(self):
-        count = self.reviews_created_for_user.count()  # type: ignore
+        count = self.reviews_created_for_user.count()
         if count == 0:
             return 0
         else:
             total_rating = 0
-            for review in self.reviews_created_for_user.all().values("rating"):  # type: ignore
+            for review in self.reviews_created_for_user.all().values("rating"):
                 total_rating += review["rating"]
             return round(total_rating / count, 2)
+
+    def wishlists_count(self):
+        count = self.wishlists.values("products").count()
+        if count == 0:
+            return 0
+        else:
+            return count
